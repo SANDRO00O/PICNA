@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PICNA - Astronomy Picture of the Day</title>
     <link rel="stylesheet" href="assets/css/all.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="assets/css/style.css" type="text/css" media="all" />
 </head>
 
@@ -34,7 +33,6 @@
         <div class="hero-content">
             <h2>Discover the Wonders of the Cosmos</h2>
             <p>Astronomy Picture of the Day from NASA. Each day a different image of our fascinating universe is featured, along with a brief explanation written by a professional astronomer.</p>
-            
             <div class="scroll-down">
                 <a href="#search-section" id="scrollButton">
                     <i class="fas fa-arrow-down"></i>
@@ -51,10 +49,9 @@
             <div class="input-group">
                 <div class="input-field">
                     <label for="date-input"><i class="far fa-calendar"></i> Select Date (YYYY-MM-DD)</label>
-                    <input type="text" id="date-input" class="details-input" placeholder="e.g., 2025-07-1">
+                    <input type="text" id="date-input" class="details-input" placeholder="e.g., 2025-07-01">
                     <p class="warn" id="warn">Please use YYYY-MM-DD format.</p>
                 </div>
-                
                 <div class="button-group">
                     <button class="btn" id="fetch-image">
                         <i class="fas fa-image"></i> Get Image
@@ -72,7 +69,6 @@
                 <div class="spinner"></div>
                 <p>Loading cosmic image...</p>
             </div>
-            
             <div class="image-container" id="image-container">
                 <div class="image-info">
                     <h2>Welcome to the Cosmos!</h2>
@@ -91,6 +87,7 @@
         </div>
     </footer>
     
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="assets/js/script.js" type="text/javascript" charset="utf-8"></script>
 </body>
 
