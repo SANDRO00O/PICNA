@@ -277,7 +277,7 @@ nav a:hover::after {
   background: rgba(15, 15, 15, 0.8);
   border: 1px solid #333;
   margin: 40px 0;
-  opacity: 0;
+  opacity: 1;
   transform: translateY(20px);
   transition: all 0.8s ease;
 }
@@ -291,7 +291,6 @@ nav a:hover::after {
   width: 100%;
   display: block;
   height: auto;
-  object-fit: cover;
   border-bottom: 1px solid #333;
 }
 
@@ -411,3 +410,4 @@ footer p {
     display: none;
   }
 }
+
