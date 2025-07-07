@@ -129,6 +129,13 @@ nav a:hover::after {
     linear-gradient(to top, black 0%, transparent 25%),
     url('/assets/images/freeflyer_nasa_big.jpg') no-repeat center center / cover;
   z-index: -1;
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+.loaded {
+  opacity: 1 !important;
+
 }
 
 .hero-content {
@@ -356,7 +363,7 @@ nav a:hover::after {
   0% {
     transform: rotate(0deg);
   }
-
+  
   100% {
     transform: rotate(360deg);
   }
@@ -383,40 +390,40 @@ footer p {
     flex-direction: column;
     gap: 20px;
   }
-
+  
   nav ul {
     gap: 25px;
     flex-wrap: wrap;
     justify-content: center;
   }
-
+  
   .button-group {
     flex-direction: column;
     align-items: center;
   }
-
+  
   .btn {
     width: 100%;
     justify-content: center;
   }
-
+  
   .image-info h2 {
     font-size: 1.5rem;
   }
-
+  
   .image-info p {
     font-size: calc(1.5rem / 1.618);
   }
-
+  
   .image-credit {
     font-size: 8px;
   }
-
+  
   .hero-content {
     position: relative;
     top: -120px;
   }
-
+  
   .logo .logoimg {
     display: none;
   }
