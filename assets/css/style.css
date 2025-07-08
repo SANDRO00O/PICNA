@@ -276,9 +276,9 @@ nav a:hover::after {
   transition: background var(--transition), transform 0.2s ease;
 }
 
-.btn:hover {
+.btn:active {
   background: rgba(255, 255, 255, 0.1);
-  transform: translateY(-3px);
+  transform: scale(0.95);
 }
 
 /* Image Section */
@@ -286,16 +286,18 @@ nav a:hover::after {
   background: rgba(15, 15, 15, 0.8);
   border: 1px solid #333;
   margin: 40px 0;
-  opacity: 1;
-  transform: translateY(20px);
+  opacity: 0;
+  transform: scale(0.7);
   transition: opacity 0.8s ease, transform 0.8s ease;
   border-radius: var(--radius);
   overflow: hidden;
+  height: 0;
 }
 
 .image-container.visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: scale(1);
+  height: auto;
 }
 
 .image-container img {
@@ -306,7 +308,7 @@ nav a:hover::after {
 }
 
 .image-info {
-  padding: 30px;
+  padding: 1.3rem 1rem;
 }
 
 .image-info h2 {
@@ -337,16 +339,20 @@ nav a:hover::after {
 /* Loader */
 .loader {
   position: relative;
-  padding: 60px 0;
+  padding: 0;
   text-align: center;
   opacity: 0;
   visibility: hidden;
-  transition: opacity var(--transition), visibility var(--transition);
+  transition: all var(--transition), visibility var(--transition);
+  height: 0;
 }
 
 .loader.active {
   opacity: 1;
+  padding: 60px 0;
+
   visibility: visible;
+  height: auto;
 }
 
 .loader .spinner {
