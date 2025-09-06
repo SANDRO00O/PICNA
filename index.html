@@ -8,28 +8,28 @@
     <link rel="stylesheet" href="assets/css/all.css">
     <link rel="stylesheet" href="assets/css/style.css?rev=3" type="text/css" media="all" />
     <script src="https://kit.fontawesome.com/aac312d2b1.js" crossorigin="anonymous"></script>
-
+    
 </head>
 
 <body>
     <!-- Header Section -->
-  <header id="header">
-    <div class="logo">
-      <img class="logoimg" src="/assets/images/logo.svg" alt="أيقونة مانجا سلاير">
-      PICNA
-    </div>
-    <div class="menu-toggle">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-    <nav id="nav">
-      <a href="/">Home</a>
-      <a href="#search-section">Search</a>
-      <a href="https://apod.nasa.gov/apod">NASA APOD</a>
-      <a href="https://karrarnazim.netlify.app">Contact</a>
-    </nav>
-  </header>
+    <header id="header">
+        <div class="logo">
+            <img class="logoimg" src="/assets/images/logo.svg" alt="أيقونة مانجا سلاير">
+            PICNA
+        </div>
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav id="nav">
+            <a href="/">Home</a>
+            <a href="#search-section">Search</a>
+            <a href="https://apod.nasa.gov/apod">NASA APOD</a>
+            <a href="https://karrarnazim.netlify.app">Contact</a>
+        </nav>
+    </header>
     
     <!-- Hero Section -->
     <section class="hero">
@@ -90,53 +90,55 @@
             <p>All rights reserved &copy; 2025 - PICNA Project</p>
         </div>
     </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/script.js" type="text/javascript" charset="utf-8"></script>
     <script>
         const bgDiv = document.querySelector('.hero-bg');
+
+fetch("https://api.nasa.gov/planetary/apod?api_key=hQ9dLFxsPsvtCga5ZHz3mk3tTVgbZMQNgtvkvXa2")
+    .then(res => res.json())
+    .then(data => {
+        let bgUrl = "";
         
-        fetch("https://api.nasa.gov/planetary/apod?api_key=hQ9dLFxsPsvtCga5ZHz3mk3tTVgbZMQNgtvkvXa2")
-            .then(res => res.json())
-            .then(data => {
-                let bgUrl = "";
-                
-                if (data.media_type === "image") {
-                    // استخدم hdurl إن كانت متوفرة، وإلا fallback إلى url
-                    bgUrl = data.hdurl || data.url;
-                }
-                
-                else if (data.media_type === "video") {
-                    const youtubeMatch = data.url.match(/youtube\.com.*[?&]v=([^&]+)/) || data.url.match(/youtu\.be\/([^?&]+)/);
-                    if (youtubeMatch) {
-                        const videoId = youtubeMatch[1];
-                        bgUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
-                    } else if (data.thumbnail_url) {
-                        bgUrl = data.thumbnail_url;
-                    } else {
-                        console.warn("لم يتم العثور على صورة مصغرة للفيديو.");
-                        return;
-                    }
-                }
-                
-                const img = new Image();
-                img.src = bgUrl;
-                
-                img.onload = () => {
-                    bgDiv.style.background = `
-                    linear-gradient(to top, black 0%, transparent 25%),
-                    url('${bgUrl}') no-repeat center center / cover`;
-                    bgDiv.classList.add('loaded');
-                };
-                
-                img.onerror = () => {
-                    console.error("فشل تحميل الخلفية:", bgUrl);
-                };
-            })
-            .catch(() => {
-                console.error("حدث خطأ أثناء جلب صورة اليوم من NASA.");
-            });
+        if (data.media_type === "image") {
+            // هنا نخليها تستخدم النسخة العادية فقط
+            bgUrl = data.url;
+        }
+        
+        else if (data.media_type === "video") {
+            const youtubeMatch = data.url.match(/youtube\.com.*[?&]v=([^&]+)/) || data.url.match(/youtu\.be\/([^?&]+)/);
+            if (youtubeMatch) {
+                const videoId = youtubeMatch[1];
+                bgUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+            } else if (data.thumbnail_url) {
+                bgUrl = data.thumbnail_url;
+            } else {
+                console.warn("لم يتم العثور على صورة مصغرة للفيديو.");
+                return;
+            }
+        }
+        
+        const img = new Image();
+        img.src = bgUrl;
+        
+        img.onload = () => {
+            bgDiv.style.background = `
+            linear-gradient(to top, black 0%, transparent 25%),
+            url('${bgUrl}') no-repeat center center / cover`;
+            bgDiv.classList.add('loaded');
+        };
+        
+        img.onerror = () => {
+            console.error("فشل تحميل الخلفية:", bgUrl);
+        };
+    })
+    .catch(() => {
+        console.error("حدث خطأ أثناء جلب صورة اليوم من NASA.");
+    });
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-        const header = document.getElementById("header");
+            const header = document.getElementById("header");
             const menuToggle = document.querySelector('.menu-toggle');
             if (menuToggle) {
                 menuToggle.addEventListener('click', function() {
@@ -147,8 +149,6 @@
             }
         });
     </script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="assets/js/script.js" type="text/javascript" charset="utf-8"></script>
 </body>
 
 </html>

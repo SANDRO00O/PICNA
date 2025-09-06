@@ -37,14 +37,14 @@ function getImage(mode) {
   // hide warning & previous image
   warn.style.opacity = 0;
   imageContainer.classList.remove("visible");
-
+  
   const date = document.getElementById("date-input").value;
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
     loader.classList.remove("active");
     warn.style.opacity = 1;
     return;
   }
-
+  
   fetch(`${url}date=${date}&api_key=${apiKey}`)
     .then(res => {
       if (!res.ok) throw new Error();
@@ -55,8 +55,9 @@ function getImage(mode) {
       const newC = document.createElement("div");
       newC.className = "image-container";
       const imgUrl = (mode === "hd" && data.hdurl) ? data.hdurl : data.url;
+      
       newC.innerHTML = `
-        <img src="${imgUrl}" alt="${data.title}">
+        <img id="apodimg" src="${imgUrl}" alt="${data.title}">
         <div class="image-info">
           <h2>${data.title}</h2>
           <p>${data.explanation}</p>
@@ -65,14 +66,21 @@ function getImage(mode) {
             <div>Date: ${date}</div>
           </div>
         </div>`;
+      
       document.getElementById("image-section").replaceChild(newC, imageContainer);
       imageContainer = newC;
+      
+      // ✅ اربط الحدث بعد ما تنرسم الصورة
+      document.getElementById("apodimg").addEventListener("click", () => {
+        window.location.href = imgUrl;
+      });
+      
       // animate in
       setTimeout(() => imageContainer.classList.add("visible"), 100);
       // scroll into view
       setTimeout(() => {
         document.getElementById("image-section")
-                .scrollIntoView({ behavior: 'smooth' });
+          .scrollIntoView({ behavior: 'smooth' });
       }, 500);
     })
     .catch(() => {
