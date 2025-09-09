@@ -12,6 +12,11 @@
 </head>
 
 <body>
+    <div id="loading">
+        <div class="loader">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </div>
+    </div>
     <!-- Header Section -->
     <header id="header">
         <div class="logo">
@@ -90,51 +95,62 @@
             <p>All rights reserved &copy; 2025 - PICNA Project</p>
         </div>
     </footer>
+    <script>
+        window.addEventListener('load', function() {
+            const loadingScreen = document.getElementById('loading');
+            setTimeout(() => {
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 500);
+            }, 1000);
+        });
+    </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="assets/js/script.js" type="text/javascript" charset="utf-8"></script>
     <script>
         const bgDiv = document.querySelector('.hero-bg');
-
-fetch("https://api.nasa.gov/planetary/apod?api_key=hQ9dLFxsPsvtCga5ZHz3mk3tTVgbZMQNgtvkvXa2")
-    .then(res => res.json())
-    .then(data => {
-        let bgUrl = "";
         
-        if (data.media_type === "image") {
-            // هنا نخليها تستخدم النسخة العادية فقط
-            bgUrl = data.url;
-        }
-        
-        else if (data.media_type === "video") {
-            const youtubeMatch = data.url.match(/youtube\.com.*[?&]v=([^&]+)/) || data.url.match(/youtu\.be\/([^?&]+)/);
-            if (youtubeMatch) {
-                const videoId = youtubeMatch[1];
-                bgUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
-            } else if (data.thumbnail_url) {
-                bgUrl = data.thumbnail_url;
-            } else {
-                console.warn("لم يتم العثور على صورة مصغرة للفيديو.");
-                return;
-            }
-        }
-        
-        const img = new Image();
-        img.src = bgUrl;
-        
-        img.onload = () => {
-            bgDiv.style.background = `
+        fetch("https://api.nasa.gov/planetary/apod?api_key=hQ9dLFxsPsvtCga5ZHz3mk3tTVgbZMQNgtvkvXa2")
+            .then(res => res.json())
+            .then(data => {
+                let bgUrl = "";
+                
+                if (data.media_type === "image") {
+                    // هنا نخليها تستخدم النسخة العادية فقط
+                    bgUrl = data.url;
+                }
+                
+                else if (data.media_type === "video") {
+                    const youtubeMatch = data.url.match(/youtube\.com.*[?&]v=([^&]+)/) || data.url.match(/youtu\.be\/([^?&]+)/);
+                    if (youtubeMatch) {
+                        const videoId = youtubeMatch[1];
+                        bgUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+                    } else if (data.thumbnail_url) {
+                        bgUrl = data.thumbnail_url;
+                    } else {
+                        console.warn("لم يتم العثور على صورة مصغرة للفيديو.");
+                        return;
+                    }
+                }
+                
+                const img = new Image();
+                img.src = bgUrl;
+                
+                img.onload = () => {
+                    bgDiv.style.background = `
             linear-gradient(to top, black 0%, transparent 25%),
             url('${bgUrl}') no-repeat center center / cover`;
-            bgDiv.classList.add('loaded');
-        };
-        
-        img.onerror = () => {
-            console.error("فشل تحميل الخلفية:", bgUrl);
-        };
-    })
-    .catch(() => {
-        console.error("حدث خطأ أثناء جلب صورة اليوم من NASA.");
-    });
+                    bgDiv.classList.add('loaded');
+                };
+                
+                img.onerror = () => {
+                    console.error("فشل تحميل الخلفية:", bgUrl);
+                };
+            })
+            .catch(() => {
+                console.error("حدث خطأ أثناء جلب صورة اليوم من NASA.");
+            });
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
