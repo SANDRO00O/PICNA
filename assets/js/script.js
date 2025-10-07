@@ -1,15 +1,12 @@
-// API Configuration
 const apiKey = "hQ9dLFxsPsvtCga5ZHz3mk3tTVgbZMQNgtvkvXa2";
 const url = "https://api.nasa.gov/planetary/apod?";
 
-// DOM Elements
 const button = document.getElementById("fetch-image");
 const hdButton = document.getElementById("fetch-hd");
 const loader = document.getElementById("loader");
 const warn = document.getElementById("warn");
 let imageContainer = document.getElementById("image-container");
 
-// Set today's date
 (function setToday() {
   const today = new Date();
   const yyyy = today.getFullYear();
@@ -18,11 +15,9 @@ let imageContainer = document.getElementById("image-container");
   document.getElementById('date-input').value = `${yyyy}-${mm}-${dd}`;
 })();
 
-// Event Listeners
 button.addEventListener("click", () => getImage("normal"));
 hdButton.addEventListener("click", () => getImage("hd"));
 
-// Smooth scroll for hero button
 $("#scrollButton").on("click", function(e) {
   e.preventDefault();
   $("html, body").animate({
@@ -30,11 +25,8 @@ $("#scrollButton").on("click", function(e) {
   }, 800);
 });
 
-// Fetch and display image
 function getImage(mode) {
-  // show loader
   loader.classList.add("active");
-  // hide warning & previous image
   warn.style.opacity = 0;
   imageContainer.classList.remove("visible");
   
@@ -51,7 +43,6 @@ function getImage(mode) {
       return res.json();
     })
     .then(data => {
-      // build new container
       const newC = document.createElement("div");
       newC.className = "image-container";
       const imgUrl = (mode === "hd" && data.hdurl) ? data.hdurl : data.url;
@@ -70,14 +61,11 @@ function getImage(mode) {
       document.getElementById("image-section").replaceChild(newC, imageContainer);
       imageContainer = newC;
       
-      // ✅ اربط الحدث بعد ما تنرسم الصورة
       document.getElementById("apodimg").addEventListener("click", () => {
         window.location.href = imgUrl;
       });
       
-      // animate in
       setTimeout(() => imageContainer.classList.add("visible"), 100);
-      // scroll into view
       setTimeout(() => {
         document.getElementById("image-section")
           .scrollIntoView({ behavior: 'smooth' });

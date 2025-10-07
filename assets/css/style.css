@@ -520,9 +520,8 @@ footer p {
   
 }
 
-#loading {
+#loading-one {
   transition: all .4s ease;
-  
   position: fixed;
   top: 0;
   left: 0;
@@ -536,7 +535,7 @@ footer p {
   z-index: 9999;
 }
 
-.loader {
+.loader-one {
   transition: all .4s ease;
   display: flex;
   justify-content: center;
@@ -548,7 +547,7 @@ footer p {
   text-align: center;
 }
 
-.loader i {
+.loader-one i {
   color: var(--primary);
   margin: 0;
   padding: 0;

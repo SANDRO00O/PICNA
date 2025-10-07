@@ -11,15 +11,15 @@
 </head>
 
 <body>
-    <div id="loading">
-        <div class="loader">
+    <div id="loading-one">
+        <div class="loader-one">
             <i class="fas fa-circle-notch fa-spin"></i>
         </div>
     </div>
     <!-- Header Section -->
     <header id="header">
         <div class="logo">
-            <img class="logoimg" src="/assets/images/logo.svg" alt="أيقونة مانجا سلاير">
+            <img class="logoimg" src="/assets/images/logo.svg" alt="PICNA Logo">
             PICNA
         </div>
         <div class="menu-toggle">
@@ -96,7 +96,7 @@
     </footer>
     <script>
         window.addEventListener('load', function() {
-            const loadingScreen = document.getElementById('loading');
+            const loadingScreen = document.getElementById('loading-one');
             setTimeout(() => {
                 loadingScreen.style.opacity = '0';
                 setTimeout(() => {
@@ -116,7 +116,6 @@
                 let bgUrl = "";
                 
                 if (data.media_type === "image") {
-                    // هنا نخليها تستخدم النسخة العادية فقط
                     bgUrl = data.url;
                 }
                 
@@ -128,7 +127,7 @@
                     } else if (data.thumbnail_url) {
                         bgUrl = data.thumbnail_url;
                     } else {
-                        console.warn("لم يتم العثور على صورة مصغرة للفيديو.");
+                        console.warn("nothing.");
                         return;
                     }
                 }
@@ -144,11 +143,11 @@
                 };
                 
                 img.onerror = () => {
-                    console.error("فشل تحميل الخلفية:", bgUrl);
+                    console.error("error loading background", bgUrl);
                 };
             })
             .catch(() => {
-                console.error("حدث خطأ أثناء جلب صورة اليوم من NASA.");
+                console.error("faild to fetch today's image");
             });
     </script>
     <script>
