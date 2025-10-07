@@ -107,62 +107,7 @@
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="assets/js/script.js" type="text/javascript" charset="utf-8"></script>
-    <script>
-        const bgDiv = document.querySelector('.hero-bg');
-        
-        fetch("https://api.nasa.gov/planetary/apod?api_key=hQ9dLFxsPsvtCga5ZHz3mk3tTVgbZMQNgtvkvXa2")
-            .then(res => res.json())
-            .then(data => {
-                let bgUrl = "";
-                
-                if (data.media_type === "image") {
-                    bgUrl = data.url;
-                }
-                
-                else if (data.media_type === "video") {
-                    const youtubeMatch = data.url.match(/youtube\.com.*[?&]v=([^&]+)/) || data.url.match(/youtu\.be\/([^?&]+)/);
-                    if (youtubeMatch) {
-                        const videoId = youtubeMatch[1];
-                        bgUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
-                    } else if (data.thumbnail_url) {
-                        bgUrl = data.thumbnail_url;
-                    } else {
-                        console.warn("nothing.");
-                        return;
-                    }
-                }
-                
-                const img = new Image();
-                img.src = bgUrl;
-                
-                img.onload = () => {
-                    bgDiv.style.background = `
-            linear-gradient(to top, black 0%, transparent 25%),
-            url('${bgUrl}') no-repeat center center / cover`;
-                    bgDiv.classList.add('loaded');
-                };
-                
-                img.onerror = () => {
-                    console.error("error loading background", bgUrl);
-                };
-            })
-            .catch(() => {
-                console.error("faild to fetch today's image");
-            });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const header = document.getElementById("header");
-            const menuToggle = document.querySelector('.menu-toggle');
-            if (menuToggle) {
-                menuToggle.addEventListener('click', function() {
-                    document.getElementById('nav').classList.toggle('active');
-                    this.classList.toggle('active');
-                    header.style.background = '#000000';
-                });
-            }
-        });
-    </script>
+    
 </body>
 
 </html>
