@@ -9,11 +9,32 @@ let imageContainer = document.getElementById("image-container");
 document.addEventListener("DOMContentLoaded", () => {
   const header = document.getElementById("header");
   const menuToggle = document.querySelector(".menu-toggle");
-  if (menuToggle) {
+  const nav = document.getElementById("nav");
+  const body = document.body;
+  
+  if (menuToggle && header && nav) {
+    // فتح وإغلاق القائمة بالزر
     menuToggle.addEventListener("click", () => {
-      document.getElementById("nav").classList.toggle("active");
+      nav.classList.toggle("active");
       menuToggle.classList.toggle("active");
-      header.style.background = "#000";
+      
+      if (nav.classList.contains("active")) {
+        header.style.background = "#000";
+        body.style.overflow = "hidden";
+      } else {
+        header.style.background = "";
+        body.style.overflow = "";
+      }
+    });
+    
+    // إغلاق القائمة عند الضغط على أي خيار داخلها
+    nav.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        nav.classList.remove("active");
+        menuToggle.classList.remove("active");
+        header.style.background = "";
+        body.style.overflow = "";
+      });
     });
   }
 });
